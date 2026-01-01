@@ -1,43 +1,36 @@
-# Astro Starter Kit: Minimal
+# Sitio web Taco Express negocio de comida
 
-```sh
-npm create astro@latest -- --template minimal
-```
+## Descripción
+Desarrollo de un sitio web para un negocio de comida local, enfocado en mostrar el menú de forma clara y facilitar los pedidos mediante WhatsApp.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Objetivo
+Crear una página web accesible y fácil de usar que permita:
+- Presentar el menú del negocio
+- Organizar productos por categorías
+- Facilitar pedidos directos por WhatsApp
+- Mejorar la presencia digital del negocio
 
-## 🚀 Project Structure
+## Solución implementada
+Se desarrolló un sitio web personalizado con:
+- Menú estructurado por categorías
+- Botones de pedido que redirigen a WhatsApp con el mensaje prellenado
+- Diseño responsive optimizado para dispositivos móviles
+- Interfaz simple y enfocada en la experiencia del usuario
 
-Inside of your Astro project, you'll see the following folders and files:
+## Tecnologías utilizadas
+- ASTRO
+- TAILWIND
+- TYPESCRIPT
+- JAVASCRIPT
+- CLOUDFLARE (hosting)
+- HOSTINGER (adquisicion del dominio)
+- WhatsApp API (enlaces directos)
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+## Resultado
+El negocio cuenta ahora con una página web propia que centraliza su menú y permite a los clientes realizar pedidos de forma rápida y sencilla desde cualquier dispositivo.
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
-
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+## Aprendizajes
+- Desarrollo de un proyecto web para un cliente real
+- Traducción de necesidades de negocio a funcionalidades web
+- Importancia de la simplicidad en proyectos comerciales
+- Comunicación con un cliente no técnico
