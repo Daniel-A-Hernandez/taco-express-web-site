@@ -1,0 +1,30 @@
+---
+import {X} from "@lucide/astro";
+
+---
+<!--Hidden -->
+ <article class="modal fixed inset-0 z-10   hidden flex items-center justify-center p-4">
+    <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" onclick="closeModal()"></div>
+    <div class="relative bg-white w-full max-w-2xl max-h-[90vh] rounded-[2.5rem] overflow-hidden shadow-2xl flex flex-col fade-in">
+        <div id="modal-header" class="p-6 bg-stone-900 text-white flex justify-between items-start">
+            <div>
+                <h3 id="modal-title" class="text-2xl font-black uppercase italic tracking-tighter">Personalizar</h3>
+                <p id="modal-desc" class="opacity-80 text-xs mt-1"></p>
+            </div>
+            <button id="close-modal" onclick="closeModal()" class="p-2 hover:bg-white/20 rounded-full transition-colors">
+            <X />
+            </button>
+        </div>
+        
+        <div id="modal-body" class="p-6 overflow-y-auto space-y-6 grow">
+            <!-- Opciones dinámicas -->
+
+        </div>
+        <div class="p-6 border-t bg-stone-50 flex items-center justify-between gap-4">
+            <div class="text-2xl font-black text-[#f29829] italic" id="modal-price-display">$0.00</div>
+            <button onclick="confirmCustomization()" class="bg-[#f29829] hover:bg-[#db7f0d] text-white font-black px-6 py-3 rounded-2xl uppercase italic tracking-widest text-sm shadow-xl transition-all active:scale-95 cursor-pointer">
+                Agregar a la Orden
+            </button>
+        </div>
+    </div>
+ </article>

@@ -1,14 +1,14 @@
 ---
-import { ShoppingCart } from "@lucide/astro";
+import { ShoppingCartIcon } from '@lucide/astro';
+
 ---
-<!--Navegacion -->
-<nav class="hidden md:flex items-center space-x-8 text-sm font-semibold text-stone-600">
-    <a href="#menu-section" class="hover:text-orange-600 transition-colors">Menú</a>
-    <a href="#ubicanos" class="hover:text-orange-600 transition-colors">Ubícanos</a>
+
+
+<nav class="flex items-center space-x-4">
+    <button class="relative p-2 hover:bg-orange-50 rounded-full transition-colors cursor-pointer">
+        <i class="text-stone-700 w-6 h-6 "><ShoppingCartIcon /></i>
+        <span id="cart-badge" class=" absolute top-0 right-0 bg-red-600 text-white text-[10px] font-bold w-5 h-5 flex items-center justify-center rounded-full animate-bounce">0</span>
+    </button>
+    
+    
 </nav>
-            
-<!-- Carrito -->
-<button onclick="toggleCart()" class="relative p-2 hover:bg-orange-50 rounded-full transition-colors cursor-pointer">
-    <i class="text-stone-700 w-6 h-6"><ShoppingCart/></i>
-    <span id="cart-badge" class="hidden absolute top-0 right-0 bg-red-600 text-white text-[10px] font-bold w-5 h-5 flex items-center justify-center rounded-full animate-bounce">0</span>
-</button>
