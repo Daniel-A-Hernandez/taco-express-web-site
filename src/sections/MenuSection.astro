@@ -1,113 +1,42 @@
 ---
-import ProductCard from '@/components/ui/ProductCard.astro';
-import ModalPersonalizacion from "@/components/ui/ModalPersonalizacion.astro";
-import { supabase } from '@/lib/supabase';
-
-// Obtenemos las categorías para generar los botones de filtro automáticamente
-const { data: products } = await supabase.from('products').select('category');
-const categories = ['Todos', ...new Set(products?.map(p => p.category) || [])];
+import { menu } from "@/data/menu";
+import ProductCard from "@/components/ui/ProductCard"; // Asegúrate que la ruta sea correcta (.tsx)
 ---
 
 <section id="menu-section" class="container mx-auto px-4 py-16">
-    
-    <!-- Barra de Búsqueda -->
-    <div class="max-w-md mx-auto mb-8 relative">
-        <input 
-            type="text" 
-            id="search-input" 
-            placeholder="Buscar Tacos, Tortas, combos..." 
-            class="w-full bg-[#ffffff] border border-[#E5E7EB] text-black px-5 py-3 rounded-full focus:outline-none focus:border-[#ce1126] pl-12"
-        >
-        <i class="fa-solid fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-    </div>
 
-    <!-- Filtros Categorías -->
-    <div class="flex flex-wrap justify-center gap-2 mb-12" id="category-filters">
-        {categories.map(category => (
-            <button
-                data-category={category}
-                class="category-btn px-6 py-2 rounded-full border border-gray-200 transition-all hover:border-[#f29829] data-[active=true]:bg-[#f29829] data-[active=true]:text-white data-[active=true]:border-[#f29829]"
-                data-active={category === 'Todos' ? 'true' : 'false'}
-            >
-                {category}
-            </button>
-        ))}
-    </div>
+  <div class="max-w-md mx-auto mb-12 relative">
+    <input
+      type="text"
+      id="search-input"
+      placeholder="Buscar Tacos, Tortas, combos..."
+      class="w-full bg-white border border-gray-200 text-black px-5 py-3 rounded-full pl-12 focus:outline-none focus:border-[#f29829] shadow-sm"
+    />
+    <svg 
+      xmlns="http://www.w3.org/2000/svg" 
+      class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" 
+      fill="none" viewBox="0 0 24 24" stroke="currentColor"
+    >
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+    </svg>
+  </div>
 
-    <!-- Grid de Productos -->
-    <!-- 
-      IMPORTANTE: Tu ProductCard ya trae el .map() dentro, 
-      así que simplemente lo llamamos una vez.
-    -->
-    <div id="products-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <ProductCard />
-    </div>
+  <div
+    id="products-grid"
+    class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+  >
+    {menu.map((producto) => (
+      /* Inyectamos el componente de Preact con client:load.
+         Esto permite que el botón "Agregar" de cada card funcione.
+      */
+      <ProductCard producto={producto} client:load />
+    ))}
+  </div>
 
-    <!-- Estado vacío -->
-    <div id="empty-state" class="hidden text-center py-12">
-        <p class="text-gray-500 text-xl">No encontramos lo que buscas 🌮</p>
-    </div>
-
-    <ModalPersonalizacion />
+  <div id="empty-state" class="hidden text-center py-12">
+    <p class="text-gray-500 text-xl font-bold italic uppercase tracking-tighter">
+      No encontramos lo que buscas 🌮
+    </p>
+  </div>
 
 </section>
-
-<script>
-    function setupFilters() {
-        const searchInput = document.getElementById('search-input') as HTMLInputElement;
-        const buttons = document.querySelectorAll('.category-btn');
-        const emptyState = document.getElementById('empty-state');
-        
-        // Buscamos los divs que genera tu ProductCard. 
-        // Como no tienen una clase específica de filtrado, 
-        // buscaremos los hijos directos del grid de productos.
-        const grid = document.getElementById('products-grid');
-        
-        let searchFilter = '';
-        let categoryFilter = 'Todos';
-
-        function applyFilters() {
-            const items = grid?.children;
-            if (!items) return;
-
-            let hasResults = false;
-            
-            Array.from(items).forEach((item: any) => {
-                // Extraemos los datos directamente de lo que se renderizó
-                // Buscamos el H3 para el nombre y el div de categoría
-                const name = item.querySelector('h3')?.textContent?.toLowerCase() || '';
-                const category = item.querySelector('.absolute.top-3')?.textContent?.trim() || '';
-                
-                const matchesSearch = name.includes(searchFilter.toLowerCase());
-                const matchesCategory = categoryFilter === 'Todos' || category === categoryFilter;
-
-                if (matchesSearch && matchesCategory) {
-                    item.style.display = 'flex'; // Usamos flex porque tu card tiene flex col
-                    hasResults = true;
-                } else {
-                    item.style.display = 'none';
-                }
-            });
-
-            if (emptyState) {
-                emptyState.classList.toggle('hidden', hasResults);
-            }
-        }
-
-        searchInput?.addEventListener('input', (e) => {
-            searchFilter = (e.target as HTMLInputElement).value;
-            applyFilters();
-        });
-
-        buttons.forEach(btn => {
-            btn.addEventListener('click', () => {
-                buttons.forEach(b => b.setAttribute('data-active', 'false'));
-                btn.setAttribute('data-active', 'true');
-                categoryFilter = btn.getAttribute('data-category') || 'Todos';
-                applyFilters();
-            });
-        });
-    }
-
-    document.addEventListener('DOMContentLoaded', setupFilters);
-</script>

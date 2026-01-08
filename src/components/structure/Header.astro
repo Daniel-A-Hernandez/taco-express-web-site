@@ -1,7 +1,7 @@
 ---
 import {Image} from 'astro:assets';
 import logo from '@/assets/logo-tacoexpress.png';
-import Navbar from '@/components/structure/Navbar.astro';
+import Navbar from '@/components/structure/Navbar.tsx';
 
     const now = new Date();
     const hours = now.getHours();
@@ -21,7 +21,6 @@ import Navbar from '@/components/structure/Navbar.astro';
 
     }
     
-
 ---
 
 <!-- HEADER -->
@@ -46,6 +45,12 @@ import Navbar from '@/components/structure/Navbar.astro';
             </div>
         </div>
         </div>
-        <Navbar />
+        <Navbar client:only="preact" />
     </div>  
 </header>
+
+
+<script>
+
+
+</script>

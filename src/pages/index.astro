@@ -2,18 +2,24 @@
 import "@/styles/global.css"
 import Layout from "@/layout/layout.astro"
 import HeroBanner from "@/sections/HeroBanner.astro"
-import MenuSection from "@/sections/MenuSection.astro"  	
+import MenuSection from "@/sections/MenuSection.astro"
 
+// 1. Importamos el Navbar de Preact (ajusta la ruta si está en /ui)
+import Navbar from "@/components/structure/Navbar" 
+
+// 2. Importamos los componentes de lógica
+import Cart from "@/components/ui/Cart" 
+import ProductModal from "@/components/ui/ProductModal" 
 ---
 
 <Layout>
-    <HeroBanner />
+    <Navbar client:only="preact" />
 
+    <HeroBanner />
+    
     <MenuSection />
 
-        
+    <Cart client:only="preact" />
+    <ProductModal client:only="preact" />
 
 </Layout>
-
-
-
