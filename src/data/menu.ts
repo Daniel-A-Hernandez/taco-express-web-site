@@ -69,13 +69,13 @@ export const menu: Producto[] = [
   // CATEGORÍA: ESPECIALIDADES (Extras Globales donde aplique)
   { id: "g-ord",imagen:'https://pub-24b9526bf2534974a8f6ec5a149e405c.r2.dev/Gringas.png', nombre: "Gringas (Orden de 3)", categoria: "GRINGAS", precioBase: 3.75, proteinas: CARNES_ESTANDAR, tipoExtra: 'global' },
   { id: "a-mex",imagen:'https://pub-24b9526bf2534974a8f6ec5a149e405c.r2.dev/alambre-mexicano.jpg', nombre: "Alambre Mexicano", categoria: "ALAMBRES", precioBase: 5.50, proteinas: CARNES_ESTANDAR, tipoExtra: 'global' },
-  { id: "q-ord",imagen:'', nombre: "Quesadillas (Orden de 3)", categoria: "QUESADILLAS", precioBase: 2.95, tipoExtra: 'ninguno' },
+  { id: "q-ord",imagen:'https://pub-24b9526bf2534974a8f6ec5a149e405c.r2.dev/quesadillas.png', nombre: "Quesadillas (Orden de 3)", categoria: "QUESADILLAS", precioBase: 2.95, tipoExtra: 'ninguno' },
   { id: "s-tort",imagen:'https://pub-24b9526bf2534974a8f6ec5a149e405c.r2.dev/sopa%20de%20tortilla.png',  nombre: "Sopa de Tortilla", categoria: "SOPAS", precioBase: 4.50, tipoExtra: 'ninguno' },
 
   // CATEGORÍA: TAQUIZAS
-  { id: "taq-10",imagen:'https://pub-24b9526bf2534974a8f6ec5a149e405c.r2.dev/taquiza-10.png', nombre: "Taquiza 10 Tacos", categoria: "TAQUIZAS", precioBase: 11.50, tipoExtra: 'ninguno', variantes: [{ nombre: "Sugerida (3P, 4Pa, 3R)", precioAdicional: 0 }, { nombre: "Mixtos", precioAdicional: 0.30 }] },
-  { id: "taq-15",imagen:'https://pub-24b9526bf2534974a8f6ec5a149e405c.r2.dev/Taquiza-15.jpeg', nombre: "Taquiza 15 Tacos", categoria: "TAQUIZAS", precioBase: 15.95, tipoExtra: 'ninguno', variantes: [{ nombre: "Sugerida (5P, 5Pa, 5R)", precioAdicional: 0 }, { nombre: "Mixtos", precioAdicional: 1.55 }] },
-  { id: "taq-20",imagen:'https://pub-24b9526bf2534974a8f6ec5a149e405c.r2.dev/taquiza-20.jpeg', nombre: "Taquiza 20 Tacos", categoria: "TAQUIZAS", precioBase: 21.95, tipoExtra: 'ninguno', variantes: [{ nombre: "Sugerida (4P, 8Pa, 8R)", precioAdicional: 0 }, { nombre: "Mixtos", precioAdicional: 1.55 }] },
+  { id: "taq-10",imagen:'https://pub-24b9526bf2534974a8f6ec5a149e405c.r2.dev/taquiza-10.png', nombre: "Taquiza 10 Tacos", categoria: "TAQUIZAS", precioBase: 11.50, tipoExtra: 'ninguno', variantes: [{ nombre: "3 Pastor, 4 Pollo, 3 Res", precioAdicional: 0 }, { nombre: "Mixtos", precioAdicional: 0.30 }] },
+  { id: "taq-15",imagen:'https://pub-24b9526bf2534974a8f6ec5a149e405c.r2.dev/Taquiza-15.jpeg', nombre: "Taquiza 15 Tacos", categoria: "TAQUIZAS", precioBase: 15.95, tipoExtra: 'ninguno', variantes: [{ nombre: "5 Pastor, 5 Pollo, 5 Res)", precioAdicional: 0 }, { nombre: "Mixtos", precioAdicional: 1.55 }] },
+  { id: "taq-20",imagen:'https://pub-24b9526bf2534974a8f6ec5a149e405c.r2.dev/taquiza-20.jpeg', nombre: "Taquiza 20 Tacos", categoria: "TAQUIZAS", precioBase: 21.95, tipoExtra: 'ninguno', variantes: [{ nombre: "4 Pastor, 8 Pollo, 8 Res)", precioAdicional: 0 }, { nombre: "Mixtos", precioAdicional: 1.55 }] },
 
   // CATEGORÍA: COMBOS (Extras Globales)
   { id: "c-art",imagen:'https://pub-24b9526bf2534974a8f6ec5a149e405c.r2.dev/combo-arturito.png', nombre: "Combo Arturito", categoria: "COMBOS", precioBase: 4.95, tipoExtra: 'global', proteinas: CARNES_COMBOS, variantes: [{ nombre: "Con Torta Mexicana", precioAdicional: 0 }, { nombre: "Con Burrito", precioAdicional: 0 }] },

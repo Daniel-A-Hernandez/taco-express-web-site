@@ -1,102 +1,135 @@
+import { useState } from 'preact/hooks';
 import { useStore } from '@nanostores/preact';
-import { $cart, removeItem, updateQuantity } from '@/store/cartStore';
-
+import { $cart, removeItem, updateQuantity, $isCartOpen, toggleCart } from '@/store/cartStore';
+import {Minus, Plus, X, ShoppingBasket, Trash, Send} from 'lucide-preact'
 export default function Cart() {
   const cart = useStore($cart);
+  const isOpen = useStore($isCartOpen);
+  
+  const [nombre, setNombre] = useState('');
+  const [direccion, setDireccion] = useState('');
+  const [notas, setNotas] = useState('');
 
-  // Calculamos el gran total de la orden
   const totalOrden = cart.reduce((acc, item) => acc + (item.precioTotalUnitario * item.cantidad), 0);
 
   const enviarWhatsApp = () => {
-    const numeroTelefono = "50375138755"; // <--- REEMPLAZA CON TU NÚMERO (incluye código de país)
+    if (!nombre.trim() || !direccion.trim()) {
+      alert("⚠️ Por favor, ingresa tu nombre y dirección.");
+      return;
+    }
+
+    const numeroTelefono = "50375138755";
+    let mensaje = `*🔥 NUEVO PEDIDO - TACO EXPRESS 🔥*\n\n`;
+    mensaje += `👤 *CLIENTE:* ${nombre}\n`;
+    mensaje += `📍 *ENTREGA:* ${direccion}\n`;
+    if (notas) mensaje += `📝 *NOTAS:* ${notas}\n\n`;
+    mensaje += `------------------------------------------\n`;
     
-    let mensaje = "¡Hola! Quisiera realizar el siguiente pedido:\n\n";
-    
-    cart.forEach((item) => {
-      mensaje += `*${item.cantidad}x ${item.nombre}*\n`;
-      if (item.varianteSeleccionada) mensaje += `  • Opción: ${item.varianteSeleccionada.nombre}\n`;
-      if (item.proteinaSeleccionada) mensaje += `  • Carne: ${item.proteinaSeleccionada.nombre}\n`;
+    cart.forEach((item, index) => {
+      mensaje += `*${index + 1}. ${item.nombre.toUpperCase()}* (x${item.cantidad})\n`;
+      if (item.varianteSeleccionada) mensaje += `   🔸 ${item.varianteSeleccionada.nombre}\n`;
+      if (item.proteinaSeleccionada) mensaje += `   🥩 ${item.proteinaSeleccionada.nombre}\n`;
       if (item.extrasSeleccionados.length > 0) {
-        const extrasStr = item.extrasSeleccionados.map(e => e.nombre).join(', ');
-        mensaje += `  • Extras: ${extrasStr}\n`;
+        mensaje += `   ➕ ${item.extrasSeleccionados.map(e => e.nombre).join(', ')}\n`;
       }
-      mensaje += `  Subtotal: $${(item.precioTotalUnitario * item.cantidad).toFixed(2)}\n\n`;
+      mensaje += `   💰 $${(item.precioTotalUnitario * item.cantidad).toFixed(2)}\n\n`;
     });
 
-    mensaje += `*TOTAL A PAGAR: $${totalOrden.toFixed(2)}*\n\n`;
-    mensaje += "¿Me confirman el tiempo de espera? Gracias.";
-    
-    const url = `https://wa.me/${numeroTelefono}?text=${encodeURIComponent(mensaje)}`;
-    window.open(url, '_blank');
+    mensaje += `------------------------------------------\n`;
+    mensaje += `💵 *TOTAL: $${totalOrden.toFixed(2)}*`;
+
+    window.open(`https://wa.me/${numeroTelefono}?text=${encodeURIComponent(mensaje)}`, '_blank');
   };
 
-  // Si no hay nada en el carrito, no mostramos el componente
-  if (cart.length === 0) return null;
+  if (!isOpen) return null;
 
   return (
-    <div class="fixed bottom-6 right-6 z-40 w-full max-w-sm px-4 sm:px-0">
-      <div class="bg-white rounded-[2rem] shadow-2xl border border-stone-100 overflow-hidden flex flex-col max-h-[75vh]">
+    <div className="fixed inset-0 z-[100] flex justify-end">
+      <div className="fixed inset-0 bg-stone-900/40 backdrop-blur-sm" onClick={toggleCart}></div>
+
+      <div className="relative w-full max-w-full sm:max-w-[400px] bg-white h-screen shadow-2xl flex flex-col animate-in slide-in-from-right duration-300">
         
-        {/* Header del Carrito */}
-        <div class="p-5 bg-stone-900 text-white flex justify-between items-center">
-          <div class="flex items-center gap-2">
-            <span class="font-black italic uppercase tracking-tighter text-lg">Tu Orden</span>
-          </div>
-          <span class="bg-[#f29829] text-white px-3 py-1 rounded-full text-xs font-bold uppercase">
-            {cart.length} {cart.length === 1 ? 'Platillo' : 'Platillos'}
-          </span>
+        {/* Header */}
+        <div className="bg-stone-900 p-6 border-b border-stone-100 flex justify-between items-center shrink-0">
+            <h2 className="w-full font-black italic uppercase text-xl tracking-tighter text-white">Tu Orden</h2>
+          <button onClick={toggleCart} className="text-stone-400 hover:text-[#f29829] transition-colors text-xl cursor-pointer"><X/></button>
         </div>
 
-        {/* Lista de Productos */}
-        <div class="p-4 overflow-y-auto space-y-4 grow bg-stone-50">
-          {cart.map((item, index) => (
-            <div key={index} class="bg-white p-4 rounded-2xl shadow-sm border border-stone-100 space-y-2">
-              <div class="flex justify-between items-start">
-                <h4 class="font-bold text-stone-800 text-sm leading-tight uppercase italic">{item.nombre}</h4>
-                <button 
-                  onClick={() => removeItem(index)}
-                  class="text-stone-300 hover:text-red-500 transition-colors"
-                >
-                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"></path><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path></svg>
-                </button>
-              </div>
-              
-              <div class="text-[11px] text-stone-500 space-y-1">
-                {item.proteinaSeleccionada && (
-                  <p>🍖 Carne: <span class="text-stone-700 font-semibold">{item.proteinaSeleccionada.nombre}</span></p>
-                )}
-                {item.varianteSeleccionada && (
-                  <p>📦 Opción: <span class="text-stone-700 font-semibold">{item.varianteSeleccionada.nombre}</span></p>
-                )}
-                {item.extrasSeleccionados.length > 0 && (
-                  <p>➕ Extras: <span class="text-stone-700 font-semibold">{item.extrasSeleccionados.map(e => e.nombre).join(', ')}</span></p>
-                )}
-              </div>
-
-              <div class="flex justify-between items-center pt-2 border-t border-stone-50">
-                <div class="flex items-center gap-4 bg-stone-100 rounded-xl px-3 py-1">
-                  <button onClick={() => updateQuantity(index, -1)} class="font-black text-stone-600 hover:text-[#f29829]">-</button>
-                  <span class="text-xs font-black text-stone-800">{item.cantidad}</span>
-                  <button onClick={() => updateQuantity(index, 1)} class="font-black text-stone-600 hover:text-[#f29829]">+</button>
-                </div>
-                <span class="font-black text-stone-900 text-sm">${(item.precioTotalUnitario * item.cantidad).toFixed(2)}</span>
-              </div>
+        {/* Lista de Productos (Scrollable) */}
+        <div className="flex-grow overflow-y-auto p-6 bg-white space-y-6">
+          {cart.length === 0 ? (
+            <div className="h-full flex flex-col items-center justify-center text-stone-300">
+              <span className="text-5xl mb-4">🌮</span>
+              <p className="font-bold uppercase italic text-xs tracking-widest">Carrito Vacío</p>
             </div>
-          ))}
+          ) : (
+            cart.map((item, index) => (
+              <div key={index} className="flex gap-4 group">
+                <img src={item.imagen} className="w-20 h-20 object-cover rounded-2xl bg-stone-100 shrink-0" />
+                <div className="flex flex-col justify-between py-1 flex-1">
+                  <div className="flex justify-between items-start">
+                    <h4 className="font-bold text-stone-900 text-[13px] uppercase leading-tight italic">{item.nombre}</h4>
+                    <button onClick={() => removeItem(index)} className="cursor-pointer text-stone-300 hover:text-red-500 transition-colors"><Trash color='red' size={20}/></button>
+                  </div>
+                  <div className="flex justify-between items-end">
+                    <div className="flex items-center gap-3 bg-stone-50 rounded-full px-3 py-1 border border-stone-100">
+                      <button onClick={() => updateQuantity(index, -1)} className="text-stone-400 hover:text-orange-500 font-bold cursor-pointer"><Minus size={20}/></button>
+                      <span className="text-xs font-bold text-stone-900">{item.cantidad}</span>
+                      <button onClick={() => updateQuantity(index, 1)} className="text-stone-400 hover:text-orange-500 font-bold cursor-pointer"><Plus size={20}/></button>
+                    </div>
+                    <span className="font-black text-stone-900 text-sm">${(item.precioTotalUnitario * item.cantidad).toFixed(2)}</span>
+                  </div>
+                </div>
+              </div>
+            ))
+          )}
         </div>
 
-        {/* Botón Finalizar */}
-        <div class="p-6 bg-white border-t border-stone-100 space-y-4">
-          <div class="flex justify-between items-center">
-            <span class="text-stone-400 uppercase text-[10px] font-black tracking-[0.2em]">Total Pedido</span>
-            <span class="text-2xl font-black text-[#f29829] italic">${totalOrden.toFixed(2)}</span>
+        {/* Sección de Datos y Footer (Fijo abajo) */}
+        <div className="shrink-0 border-t border-stone-400 bg-white p-6 pb-8 space-y-6">
+          
+          {/* Formulario Limpio */}
+          <div className="space-y-4">
+            <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-stone-700">Datos de Entrega</h3>
+            <div className="space-y-1">
+              <input 
+                type="text" 
+                placeholder="Nombre completo"
+                value={nombre}
+                onInput={(e) => setNombre(e.currentTarget.value)}
+                className="w-full border-b border-stone-500 py-2 text-sm focus:border-orange-500 outline-none transition-colors placeholder:text-stone-300"
+              />
+              <input 
+                type="text" 
+                placeholder="Dirección de entrega"
+                value={direccion}
+                onInput={(e) => setDireccion(e.currentTarget.value)}
+                className="w-full border-b border-stone-500 py-2 text-sm focus:border-orange-500 outline-none transition-colors placeholder:text-stone-300"
+              />
+              <input 
+                type="text" 
+                placeholder="Notas (ej. sin cebolla, apto. 4...)"
+                value={notas}
+                onInput={(e) => setNotas(e.currentTarget.value)}
+                className="w-full border-b border-stone-500 py-2 text-sm focus:border-orange-500 outline-none transition-colors placeholder:text-stone-300"
+              />
+            </div>
           </div>
-          <button 
-            onClick={enviarWhatsApp}
-            class="w-full bg-[#f29829] hover:bg-[#db7f0d] text-white font-black py-4 rounded-[1.5rem] uppercase italic tracking-widest text-sm shadow-xl shadow-orange-200 transition-all active:scale-95 flex items-center justify-center gap-3"
-          >
-            Confirmar por WhatsApp
-          </button>
+
+          {/* Total y Botón */}
+          <div className="space-y-4">
+            <div className="flex justify-between items-end">
+              <span className="text-stone-700 uppercase text-[16px] font-black tracking-widest leading-none">Total: </span>
+              <span className="text-3xl font-black text-[#f29829] italic leading-none">${totalOrden.toFixed(2)}</span>
+            </div>
+            <button 
+              onClick={enviarWhatsApp}
+              disabled={cart.length === 0}
+              className="w-full cursor-pointer bg-[#25D366] hover:bg-[#21BD5B]  text-white font-black py-4 rounded-full uppercase italic tracking-widest text-sm transition-all duration-300 shadow-xl active:scale-95"
+            >
+              Pedir por WhatsApp 
+            </button>
+          </div>
         </div>
       </div>
     </div>

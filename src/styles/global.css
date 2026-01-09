@@ -1,5 +1,36 @@
 @import "tailwindcss";
 
+:root {
+  --font-base: 'Montserrat', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-heading: 'Montserrat Alternates', 'Montserrat', sans-serif;
+}
+
+body {
+  font-family: var(--font-base);
+  line-height: 1.6;
+  margin: 0;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-heading);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 html{
     scroll-behavior: smooth;
 }
+

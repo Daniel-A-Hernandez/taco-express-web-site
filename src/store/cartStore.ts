@@ -1,7 +1,7 @@
 import { atom } from 'nanostores';
 import type { Producto, Opcion } from '@/data/menu';
 
-// 1. Definimos la estructura de un producto dentro del carrito
+// 1. Estructura de un producto dentro del carrito
 export interface CartItem extends Producto {
   varianteSeleccionada?: Opcion;
   proteinaSeleccionada?: Opcion;
@@ -10,15 +10,23 @@ export interface CartItem extends Producto {
   precioTotalUnitario: number;
 }
 
-// 2. Creamos el átomo (el estado global)
+// 2. ESTADOS GLOBALES
 export const $cart = atom<CartItem[]>([]);
+export const $isCartOpen = atom(false); // <--- NUEVO: Controla si el carrito se ve
 
-// --- ACCIONES (Lógica de control) ---
+// --- ACCIONES ---
+
+// Abrir o cerrar el carrito
+export function toggleCart() {
+  $isCartOpen.set(!$isCartOpen.get());
+}
 
 // Añadir producto al carrito
 export function addToCart(item: CartItem) {
   const currentCart = $cart.get();
   $cart.set([...currentCart, item]);
+  
+  // OPCIONAL: Abrir el carrito automáticamente al añadir algo
 }
 
 // Eliminar un producto por su índice
@@ -42,7 +50,8 @@ export function updateQuantity(index: number, delta: number) {
   }
 }
 
-// Vaciar carrito (útil después de enviar el pedido)
+// Vaciar carrito
 export function clearCart() {
   $cart.set([]);
+  $isCartOpen.set(false);
 }
