@@ -1,7 +1,7 @@
 import { useState } from 'preact/hooks';
 import { useStore } from '@nanostores/preact';
 import { $cart, removeItem, updateQuantity, $isCartOpen, toggleCart } from '@/store/cartStore';
-import {Minus, Plus, X, ShoppingBasket, Trash, Send} from 'lucide-preact'
+import {Minus, Plus, X, ShoppingBasket, Trash, SendHorizonal} from 'lucide-preact'
 import Swal from 'sweetalert2'
 export default function Cart() {
   const cart = useStore($cart);
@@ -133,9 +133,9 @@ export default function Cart() {
             <button 
               onClick={enviarWhatsApp}
               disabled={cart.length === 0}
-              className="w-full cursor-pointer bg-[#25D366] hover:bg-[#21BD5B]  text-white font-black py-4 rounded-full uppercase italic tracking-widest text-sm transition-all duration-300 shadow-xl active:scale-95"
+              className="flex justify-center items-center gap-4 w-full cursor-pointer bg-[#25D366] hover:bg-[#21BD5B]  text-white font-black py-4 rounded-full uppercase italic tracking-widest text-sm transition-all duration-300 shadow-xl active:scale-95"
             >
-              Pedir por WhatsApp 
+              Pedir por WhatsApp <SendHorizonal/>
             </button>
           </div>
         </div>

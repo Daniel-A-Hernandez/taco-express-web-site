@@ -1,23 +1,18 @@
 ---
 import { menu } from "@/data/menu";
-import ProductCard from "@/components/ui/ProductCard"; // Asegúrate que la ruta sea correcta (.tsx)
+import ProductCard from "@/components/ui/ProductCard";
 ---
 
 <section id="menu-section" class="container mx-auto px-4 py-16">
-
   <div class="max-w-md mx-auto mb-12 relative">
     <input
       type="text"
       id="search-input"
       placeholder="Buscar Tacos, Tortas, combos..."
-      class="w-full bg-white border border-gray-200 text-black px-5 py-3 rounded-full pl-12 focus:outline-none focus:border-[#f29829] shadow-sm"
+      class="w-full bg-white border border-gray-200 text-black px-5 py-3 rounded-full pl-12 focus:outline-none focus:border-[#f29829] shadow-sm transition-all"
     />
-    <svg 
-      xmlns="http://www.w3.org/2000/svg" 
-      class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" 
-      fill="none" viewBox="0 0 24 24" stroke="currentColor"
-    >
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m21 21-6-6m2-5a7 7 0 1 1-14 0 7 7 0 0 1 14 0"/>
     </svg>
   </div>
 
@@ -26,17 +21,47 @@ import ProductCard from "@/components/ui/ProductCard"; // Asegúrate que la ruta
     class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
   >
     {menu.map((producto) => (
-      /* Inyectamos el componente de Preact con client:load.
-         Esto permite que el botón "Agregar" de cada card funcione.
-      */
-      <ProductCard producto={producto} client:load />
+      <div class="product-item" data-title={producto.nombre.toLowerCase()}>
+        <ProductCard producto={producto} client:load />
+      </div>
     ))}
   </div>
 
-  <div id="empty-state" class="hidden text-center py-12">
-    <p class="text-gray-500 text-xl font-bold italic uppercase tracking-tighter">
-      No encontramos lo que buscas 🌮
+  <div id="empty-state" class="hidden text-center py-20">
+    <span class="text-4xl mb-4 block">🌮</span>
+    <p class="text-gray-500 text-xl font-black italic uppercase tracking-tighter">
+      No encontramos lo que buscas
     </p>
+    <button onclick="document.getElementById('search-input').value = ''; document.getElementById('search-input').dispatchEvent(new Event('input'))" class="mt-4 text-[#f29829] font-bold underline">Ver todo el menú</button>
   </div>
-
 </section>
+
+<script>
+  const searchInput = document.getElementById('search-input') as HTMLInputElement;
+  const productItems = document.querySelectorAll('.product-item');
+  const emptyState = document.getElementById('empty-state');
+
+  searchInput?.addEventListener('input', (e) => {
+    const searchTerm = (e.target as HTMLInputElement).value.toLowerCase().trim();
+    let hasResults = false;
+
+    productItems.forEach((item) => {
+      const title = item.getAttribute('data-title') || '';
+      
+      // Filtramos por coincidencia de texto
+      if (title.includes(searchTerm)) {
+        (item as HTMLElement).style.display = 'block';
+        hasResults = true;
+      } else {
+        (item as HTMLElement).style.display = 'none';
+      }
+    });
+
+    // Mostrar/ocultar mensaje de "no resultados"
+    if (hasResults) {
+      emptyState?.classList.add('hidden');
+    } else {
+      emptyState?.classList.remove('hidden');
+    }
+  });
+</script>

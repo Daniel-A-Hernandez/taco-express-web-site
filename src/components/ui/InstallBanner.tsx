@@ -21,7 +21,7 @@ export default function InstallBanner() {
   return (
     <>
       {/* Banner */}
-      <div class="fixed bottom-4 left-1/2 z-40 w-[92%] max-w-lg -translate-x-1/2 rounded-2xl bg-[#2b2b2b] px-4 py-3 text-white shadow-xl">
+      <div class="fixed bottom-4 left-1/2 z-40 w-[92%] max-w-lg -translate-x-1/2 rounded-2xl bg-[#2b2b2b] px-4 py-3 text-white shadow-xl lg:hidden">
         <div class="flex items-center justify-between gap-3">
           <p class="text-sm leading-snug">
             📲 Guarda <strong>Taco Express</strong> en tu teléfono y pide más rápido
