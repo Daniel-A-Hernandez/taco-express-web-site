@@ -1,6 +1,8 @@
 ---
 import { menu } from "@/data/menu";
 import ProductCard from "@/components/ui/ProductCard";
+import { Search } from '@lucide/astro';
+
 ---
 
 <section id="menu-section" class="container mx-auto px-4 py-16">
@@ -11,9 +13,8 @@ import ProductCard from "@/components/ui/ProductCard";
       placeholder="Buscar Tacos, Tortas, combos..."
       class="w-full bg-white border border-gray-200 text-black px-5 py-3 rounded-full pl-12 focus:outline-none focus:border-[#f29829] shadow-sm transition-all"
     />
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" viewBox="0 0 24 24">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m21 21-6-6m2-5a7 7 0 1 1-14 0 7 7 0 0 1 14 0"/>
-    </svg>
+    <Search class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
+    
   </div>
 
   <div

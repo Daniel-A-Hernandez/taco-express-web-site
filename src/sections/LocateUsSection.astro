@@ -1,28 +1,48 @@
 ---
+import StoreMap from "@/components/ui/storeMap";
 
 ---
+
 <section id="ubicanos" class="bg-stone-100 py-16 px-4">
-    <div class="max-w-4xl mx-auto text-center">
-        <h2 class="text-3xl font-bold text-stone-800 mb-8">Ubícanos</h2>
-        <div class="bg-white p-6 rounded-2xl shadow-sm flex flex-col md:flex-row items-center gap-8">
-            <div class="flex-1 text-left space-y-4">
-                <div class="flex items-start gap-3">
-                    <i data-lucide="map-pin" class="text-orange-600 w-6 h-6 mt-1"></i>
-                    <div>
-                        <p class="font-bold">Dirección </p>
-                        <p class="text-stone-600 italic"></p>
-                    </div>
-                </div>
-                <div class="flex items-start gap-3">
-                    <i data-lucide="clock" class="text-orange-600 w-6 h-6 mt-1"></i>
-                    <div>
-                        <p class="font-bold">Horario de Atención</p>
-                        <p class="text-stone-600">Martes a Domingo: 2:00 PM - 10:00 PM</p>
-                    </div>
-                </div>
-            </div>
-            <div class="w-full md:w-1/2 h-48 bg-stone-200 rounded-xl overflow-hidden relative flex items-center justify-center">
-            </div>
+  <div class="max-w-4xl mx-auto text-center">
+    <h2 class="text-3xl font-bold text-stone-800 mb-8">Ubícanos</h2>
+
+    <div class="bg-white p-6 rounded-2xl shadow-sm flex flex-col md:flex-row items-center gap-8">
+
+      <!-- INFO -->
+      <div class="flex-1 text-left space-y-4">
+        <div class="flex items-start gap-3">
+          <i data-lucide="map-pin" class="text-orange-600 w-6 h-6 mt-1"></i>
+          <div>
+            <p class="font-bold">Dirección 📍</p>
+            <p class="text-stone-600 italic"> Villa Monaco poligono 4, Casa #5</p>
+          </div>
         </div>
+
+        <div class="flex items-start gap-3">
+          <i data-lucide="clock" class="text-orange-600 w-6 h-6 mt-1"></i>
+          <div>
+            <p class="font-bold">Horario de Atención 📆</p>
+            <p class="text-stone-600"> Martes a Domingo: 2:00 PM – 10:00 PM</p>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-3">
+          <i data-lucide="phone" class="text-orange-600 w-6 h-6 mt-1"></i>
+          <div>
+            <p class="font-bold">Teléfono ☎️</p>
+            <a href="tel:50370000000" class="text-stone-600 hover:text-orange-600">
+              +503 7000-0000
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- MAPA -->
+      <div class="w-full md:w-1/2 h-56 rounded-xl overflow-hidden relative">
+        <StoreMap client:only="preact" />
+      </div>
+
     </div>
-    </section>
+  </div>
+</section>

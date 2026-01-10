@@ -4,45 +4,95 @@ import logo from '@/assets/logo-tacoexpress.png';
 import Navbar from '@/components/structure/Navbar';
 ---
 
-<header class="sticky top-0 z-40 bg-white shadow-md border-b border-orange-100">
-  <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
-    
-    <div class="flex items-center space-x-3">
-      <div class="relative w-12 h-12 sm:w-15 sm:h-15 flex-shrink-0">
-        <Image
-          src={logo}
-          alt="Logo Taco Express"
-          class="w-full h-full object-contain"
-          loading="eager"
-        />
-      </div>
-
-      <div>
-        <h1 class="font- text-lg sm:text-xl font-black italic uppercase text-stone-900 leading-none tracking-tighter">
-          Taco <span class="text-[#f29829]">Express</span>
-        </h1>
-
-        <div class="flex items-center text-[9px] sm:text-[10px] font-bold uppercase tracking-widest mt-1">
-          <span
-            id="indicador-dot"
-            class="w-2.5 h-2.5 mr-2 rounded-full bg-gray-300 transition-colors duration-500"
-          ></span>
-          <span id="indicador-text" class="text-stone-500">Cargando…</span>
+<div class="sticky top-0 z-40">
+  <div class="bg-stone-900 overflow-hidden py-2 border-b border-white/10">
+    <div class="marquee-container">
+      <div class="marquee-content">
+        <div class="marquee-item">
+          <p class="text-white text-[12px] font-black uppercase tracking-[0.2em] px-8">🌮 ¡Pide ya tus Tacos favoritos! 🌮</p>
+          <p class="text-[#f29829] text-[12px] font-black uppercase tracking-[0.2em] px-8">🛵 ENVÍO GRATIS en Versailles 🛵</p>
+          <p class="text-white text-[12px] font-black uppercase tracking-[0.2em] px-8">📍 Marsella envío $1.50 📍</p>
+        </div>
+        <div class="marquee-item">
+          <p class="text-white text-[12px] font-black uppercase tracking-[0.2em] px-8">🌮 ¡Pide ya tus Tacos favoritos! 🌮</p>
+          <p class="text-[#f29829] text-[12px] font-black uppercase tracking-[0.2em] px-8">🛵 ENVÍO GRATIS en Versailles 🛵</p>
+          <p class="text-white text-[12px] font-black uppercase tracking-[0.2em] px-8">📍 Marsella envío $1.50 📍</p>
         </div>
       </div>
     </div>
-
-    <div class="flex items-center">
-        <Navbar client:only="preact" />
-    </div>
-
   </div>
-</header>
+
+  <header class="bg-white shadow-md border-b border-orange-100">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+      <div class="flex items-center space-x-3">
+        <div class="relative w-12 h-12 sm:w-15 sm:h-15 shrink-0">
+          <Image 
+          src={logo} 
+          alt="Logo Taco Express" 
+          class="w-full h-full object-contain"
+          loading="eager"
+          
+          />
+        </div>
+        <div>
+          <h1 class="text-lg sm:text-xl font-black italic uppercase text-stone-900 leading-none tracking-tighter">
+            Taco <span class="text-[#f29829]">Express</span>
+          </h1>
+          <div class="flex items-center text-[9px] sm:text-[10px] font-bold uppercase tracking-widest mt-1">
+            <span id="indicador-dot" class="w-2.5 h-2.5 mr-2 rounded-full bg-gray-300"></span>
+            <span id="indicador-text" class="text-stone-500">Cargando…</span>
+          </div>
+        </div>
+      </div>
+      <div class="flex items-center">
+        <Navbar client:only="preact" />
+      </div>
+    </div>
+  </header>
+</div>
+
+<style>
+  .marquee-container {
+    display: flex;
+    width: 100%;
+    overflow: hidden;
+    user-select: none;
+  }
+
+  .marquee-content {
+    display: flex;
+    flex-shrink: 0;
+    min-width: 100%;
+    gap: 0;
+    /* La animación se aplica aquí */
+    animation: scroll-non-stop 20s linear infinite;
+  }
+
+  .marquee-item {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    min-width: 100%; /* Cada bloque ocupa el 100% para que el espejo esté listo */
+  }
+
+  @keyframes scroll-non-stop {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-100%);
+    }
+  }
+
+  /* Optimización para que no de tirones */
+  .marquee-content {
+    will-change: transform;
+  }
+</style>
 
 <script>
   function actualizarEstado() {
     const now = new Date();
-    // Ajuste para horario de El Salvador (UTC-6)
     const svTime = new Date(now.toLocaleString("en-US", {timeZone: "America/El_Salvador"}));
     
     const hours = svTime.getHours();
@@ -53,23 +103,24 @@ import Navbar from '@/components/structure/Navbar';
 
     if (!dot || !text) return;
 
-    // Lógica: Cerrado lunes, o antes de las 2 PM (14h), o después de las 10 PM (22h)
+    // Abierto de 2 PM (14) a 10 PM (22). Lunes cerrado.
     const estaCerrado = dayName === 'lunes' || hours < 14 || hours >= 22;
 
     if (estaCerrado) {
       dot.classList.remove('bg-green-500', 'bg-gray-300');
       dot.classList.add('bg-red-500', 'animate-pulse');
       text.textContent = 'Cerrado';
+      text.classList.remove('text-stone-500', 'text-green-600');
       text.classList.add('text-red-600');
     } else {
       dot.classList.remove('bg-red-500', 'bg-gray-300');
       dot.classList.add('bg-green-500', 'animate-pulse');
       text.textContent = 'Abierto ahora';
+      text.classList.remove('text-stone-500', 'text-red-600');
       text.classList.add('text-green-600');
     }
   }
 
-  // Ejecutar al cargar y cada minuto
   actualizarEstado();
   setInterval(actualizarEstado, 60000);
 </script>
