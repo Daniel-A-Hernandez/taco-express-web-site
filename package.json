@@ -25,6 +25,7 @@
     "nanostores": "^1.1.0",
     "preact": "^10.28.2",
     "svelte": "^5.46.1",
+    "sweetalert2": "^11.26.17",
     "tailwindcss": "^4.1.18",
     "typescript": "^5.9.3"
   }

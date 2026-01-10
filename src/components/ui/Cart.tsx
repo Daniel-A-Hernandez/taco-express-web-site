@@ -2,6 +2,7 @@ import { useState } from 'preact/hooks';
 import { useStore } from '@nanostores/preact';
 import { $cart, removeItem, updateQuantity, $isCartOpen, toggleCart } from '@/store/cartStore';
 import {Minus, Plus, X, ShoppingBasket, Trash, Send} from 'lucide-preact'
+import Swal from 'sweetalert2'
 export default function Cart() {
   const cart = useStore($cart);
   const isOpen = useStore($isCartOpen);
@@ -14,7 +15,14 @@ export default function Cart() {
 
   const enviarWhatsApp = () => {
     if (!nombre.trim() || !direccion.trim()) {
-      alert("⚠️ Por favor, ingresa tu nombre y dirección.");
+
+      Swal.fire({
+            title: '¡Faltan datos!',
+            text: 'Por favor, dinos tu nombre y dirección para llevarte tus pedido.',
+            icon: 'warning',
+            confirmButtonText: 'Entendido',
+            confirmButtonColor: '#f29829' // Un color naranja como de comida
+        });
       return;
     }
 
@@ -120,7 +128,7 @@ export default function Cart() {
           <div className="space-y-4">
             <div className="flex justify-between items-end">
               <span className="text-stone-700 uppercase text-[16px] font-black tracking-widest leading-none">Total: </span>
-              <span className="text-3xl font-black text-[#f29829] italic leading-none">${totalOrden.toFixed(2)}</span>
+              <h2 className="text-3xl  font-black text-[#f29829] italic leading-none">${totalOrden.toFixed(2)}</h2>
             </div>
             <button 
               onClick={enviarWhatsApp}
