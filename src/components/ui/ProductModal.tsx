@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'preact/hooks';
 import { addToCart, type CartItem } from '@/store/cartStore';
-import { EXTRAS_GLOBALES, EXTRAS_COSTRA, type Producto, type Opcion } from '@/data/menu';
+import {X} from 'lucide-preact'
+import { EXTRAS_GLOBALES, EXTRAS_COSTRA, EXTRAS_BURRITOS,EXTRAS_SOPAS,  type Producto, type Opcion} from '@/data/menu';
 
 export default function ProductModal() {
   const [producto, setProducto] = useState<Producto | null>(null);
@@ -22,8 +23,14 @@ export default function ProductModal() {
 
   if (!producto) return null;
 
-  const extrasAMostrar = producto.tipoExtra === 'global' ? EXTRAS_GLOBALES : 
-                         producto.tipoExtra === 'costra' ? EXTRAS_COSTRA : [];
+    const extrasAMostrar = 
+      producto.tipoExtra === 'global' ? EXTRAS_GLOBALES :
+      producto.tipoExtra === 'costra' ? EXTRAS_COSTRA :
+      producto.tipoExtra === 'burritos' ? EXTRAS_BURRITOS :
+      producto.tipoExtra === 'sopas'? EXTRAS_SOPAS:
+      [];
+
+
 
   const precioTotal = producto.precioBase + 
     (varianteSel?.precioAdicional || 0) + 
@@ -62,8 +69,8 @@ export default function ProductModal() {
             <h3 class="text-2xl font-black uppercase italic tracking-tighter">{producto.nombre}</h3>
             <p class="opacity-80 text-xs mt-1">Personaliza tu orden a tu gusto.</p>
           </div>
-          <button onClick={() => setProducto(null)} class="p-2 hover:bg-white/20 rounded-full transition-colors cursor-pointer">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+          <button onClick={() => setProducto(null)} class="p-2 hover:text-[#f29829] hover:bg-white/20 rounded-full transition-colors cursor-pointer">
+            <X/>
           </button>
         </div>
         
@@ -76,7 +83,7 @@ export default function ProductModal() {
                 {producto.variantes.map(v => (
                   <button onClick={() => setVarianteSel(v)} class={`p-4 rounded-2xl border text-left transition-all ${varianteSel?.nombre === v.nombre ? 'border-[#f29829] bg-orange-50 ring-1 ring-[#f29829]' : 'border-stone-100 bg-stone-50'}`}>
                     <span class="block font-bold text-stone-700">{v.nombre}</span>
-                    <span class="text-xs text-stone-500">+{v.precioAdicional.toFixed(2)}</span>
+                    <span class="text-xs text-stone-500"></span>
                   </button>
                 ))}
               </div>
@@ -104,12 +111,12 @@ export default function ProductModal() {
               <div class="grid grid-cols-1 gap-2">
                 {extrasAMostrar.map(extra => (
                   <label class="flex items-center justify-between p-4 bg-stone-50 rounded-2xl border border-stone-100 cursor-pointer hover:bg-stone-100 transition-colors">
-                    <span class="text-stone-700 font-medium">{extra.nombre} (+${extra.precioAdicional.toFixed(2)})</span>
+                    <span class="text-stone-700 font-medium">{extra.nombre} </span>
                     <input 
                       type="checkbox" 
                       checked={!!extrasSel.find(e => e.nombre === extra.nombre)}
                       onChange={() => toggleExtra(extra)}
-                      class="w-5 h-5 accent-[#f29829]" 
+                      class="w-5 h-5 accent-[#c]" 
                     />
                   </label>
                 ))}

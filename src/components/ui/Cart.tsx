@@ -64,7 +64,7 @@ export default function Cart() {
         </div>
 
         {/* Lista de Productos (Scrollable) */}
-        <div className="grow overflow-y-auto p-6 bg-white space-y-6">
+        <div className="   grow overflow-y-auto p-6 bg-white space-y-6">
           {cart.length === 0 ? (
             <div className="h-full flex flex-col items-center justify-center text-stone-300">
               <span className="text-5xl mb-4">🌮</span>

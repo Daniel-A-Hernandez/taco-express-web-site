@@ -5,6 +5,7 @@ import MobileNav from '@/components/structure/NavbarMobile' // Importa el nuevo 
 import Cart from '@/components/ui/Cart' // El carrito que ya tienes
 import InstallBanner from '@/components/ui/InstallBanner'
 import FloatingCart from '@/components/ui/flootingCart'
+import AddToCartToast from "@/components/ui/addCartToast"
 import '@fontsource/montserrat/400.css';
 import '@fontsource/montserrat/500.css';
 import '@fontsource/montserrat/600.css';
@@ -27,6 +28,7 @@ import '@fontsource/montserrat-alternates/800.css';
         
         <main class="pb-24 md:pb-0">
             <slot />
+            <AddToCartToast client:only="preact" />
         </main>
         
         <Footer />
@@ -35,7 +37,6 @@ import '@fontsource/montserrat-alternates/800.css';
         <MobileNav client:only="preact" /> 
         <Cart client:only="preact" />
         <InstallBanner client:only="preact"/>
-
         <script>
           if ("serviceWorker" in navigator) {
             window.addEventListener("load", () => {
