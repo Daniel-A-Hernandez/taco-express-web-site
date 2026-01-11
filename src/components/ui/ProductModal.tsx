@@ -52,7 +52,7 @@ export default function ProductModal() {
   };
 
   return (
-    <article class="fixed inset-0 z-50 flex items-center justify-center p-4">
+    <article class="fixed inset-0 z-[100] flex items-center justify-center p-4">
       <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" onClick={() => setProducto(null)}></div>
       
       <div class="relative bg-white w-full max-w-2xl max-h-[90vh] rounded-[2.5rem] overflow-hidden shadow-2xl flex flex-col">

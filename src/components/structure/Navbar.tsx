@@ -9,7 +9,7 @@ export default function Navbar() {
   return (
     <button 
       onClick={toggleCart}
-      className="relative p-2 hover:bg-orange-50 rounded-full transition-all cursor-pointer group flex items-center justify-center focus:outline-none"
+      className="max-md:hidden relative p-2 hover:bg-orange-50 rounded-full transition-all cursor-pointer group flex items-center justify-center focus:outline-none"
       aria-label="Carrito de compras"
     >
       <div className="text-stone-700 group-hover:text-[#f29829] transition-colors">

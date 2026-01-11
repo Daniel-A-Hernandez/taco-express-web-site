@@ -1,42 +1,41 @@
 ---
 import Footer from "@/components/structure/Footer.astro" 
 import Header from "@/components/structure/Header.astro"
+import MobileNav from '@/components/structure/NavbarMobile' // Importa el nuevo componente
+import Cart from '@/components/ui/Cart' // El carrito que ya tienes
+import InstallBanner from '@/components/ui/InstallBanner'
+import FloatingCart from '@/components/ui/flootingCart'
 import '@fontsource/montserrat/400.css';
 import '@fontsource/montserrat/500.css';
 import '@fontsource/montserrat/600.css';
 import '@fontsource/montserrat-alternates/800.css';
-import InstallBanner from '@/components/ui/InstallBanner'
-
 ---
 <html lang="es">    
-
     <head>    
         <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Taco Express</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" /> <title>Taco Express</title>
         <link rel="stylesheet" href="/styles/global.css" />
         <link rel="icon" type="image/png" href="icons/favicon.ico"/>
-
         <link rel="manifest" href="/manifest.webmanifest" />
         <meta name="theme-color" content="#f59e0b" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-
-
     </head>
 
-
-    <body>
-
+    <body class="bg-stone-50 antialiased font-['Montserrat']">
         <Header />
         
-        <main>
+        <main class="pb-24 md:pb-0">
             <slot />
         </main>
         
-        
         <Footer />
-        <InstallBanner  client:only="preact"/>
+
+        <FloatingCart client:only="preact" />
+        <MobileNav client:only="preact" /> 
+        <Cart client:only="preact" />
+        <InstallBanner client:only="preact"/>
+
         <script>
           if ("serviceWorker" in navigator) {
             window.addEventListener("load", () => {
@@ -45,4 +44,18 @@ import InstallBanner from '@/components/ui/InstallBanner'
           }
         </script>
     </body>
-    </html>
+</html>
+
+<style is:global>
+  /* Evita que el contenido quede detrás de la barra de gestos en iPhone y ajusta el MobileNav */
+  :root {
+    --sat: env(safe-area-inset-top);
+    --sar: env(safe-area-inset-right);
+    --sab: env(safe-area-inset-bottom);
+    --sal: env(safe-area-inset-left);
+  }
+
+  .pb-safe {
+    padding-bottom: var(--sab);
+  }
+</style>

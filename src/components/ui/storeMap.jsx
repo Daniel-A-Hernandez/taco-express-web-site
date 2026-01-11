@@ -35,9 +35,9 @@ export default function StoreMap() {
       href={`https://www.google.com/maps?q=${lat},${lng}`}
       target="_blank"
       rel="noopener"
-      class="block w-full h-full"
+      class="block w-full h-full z-0"
     >
-      <div id="leaflet-map" class="w-full h-full"></div>
+      <div id="leaflet-map" class="w-full h-full z-10"></div>
     </a>
   );
 }
