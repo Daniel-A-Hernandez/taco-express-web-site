@@ -1,15 +1,14 @@
 ---
-import { Image } from "astro:assets";
 import {ChevronDown} from "@lucide/astro";
 
-
+import HeroImage from '@/assets/HeroTaco.webp'
 ---
 
 <section  class="w-screen object-cover">
 
     <div class="relative h-64 md:h-96 bg-stone-900 overflow-hidden">
         <img
-            src="src/assets/HeroTaco.webp" 
+            src={HeroImage.src} 
             alt="Ingredientes frescos para preparar tacos deliciosos" 
             class="w-full h-full lg:h-auto lg:object-cover object-cover opacity-40"
             fetchpriority="high"
