@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Indica a los buscadores dónde está tu mapa del sitio
+Sitemap: https://taco-express-web-site.pages.dev/sitemap-index.xml
