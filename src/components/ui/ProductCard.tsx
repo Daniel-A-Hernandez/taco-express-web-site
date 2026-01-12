@@ -48,7 +48,7 @@ export default function ProductCard({ producto }: Props) {
           <h3 class="text-xl font-bold text-stone-800 leading-tight">
             {producto.nombre}
           </h3>
-          <span class="text-lg font-black text-[#f29829]">
+          <span class="text-lg font-black text-shadow-stone-900">
             ${producto.precioBase.toFixed(2)}
           </span>
         </div>
