@@ -53,7 +53,7 @@ export default function InstallBanner() {
 
   return (
     <>
-      <div class="fixed bottom-24 left-1/2 z-[100] w-[92%] max-w-lg -translate-x-1/2 rounded-2xl bg-[#2b2b2b] p-4 text-white shadow-2xl border border-white/5">
+      <div class="fixed bottom-24 left-1/2 z-[100] w-[92%] max-w-lg -translate-x-1/2 rounded-2xl bg-[#2b2b2b] p-4 text-white shadow-2xl border border-white/5 lg:hidden">
         <div class="flex flex-col gap-3">
           <p class="text-sm">
             📲 {deferredPrompt ? 'Instala' : 'Guarda'} <strong>Taco Express</strong> y pide más rápido

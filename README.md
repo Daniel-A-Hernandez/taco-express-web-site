@@ -34,3 +34,5 @@ El negocio cuenta ahora con una página web propia que centraliza su menú y per
 - Traducción de necesidades de negocio a funcionalidades web
 - Importancia de la simplicidad en proyectos comerciales
 - Comunicación con un cliente no técnico
+
+ ## DANIEL HERNANDEZ.
