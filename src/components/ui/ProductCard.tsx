@@ -1,5 +1,6 @@
 import { addToCart, type CartItem } from '@/store/cartStore';
 import type { Producto } from '@/data/menu';
+import { Plus } from 'lucide-preact';
 
 interface Props {
   producto: Producto;
@@ -35,7 +36,7 @@ export default function ProductCard({ producto }: Props) {
         <img
           src={producto.imagen || 'https://via.placeholder.com/400x300?text=Comida'} 
           alt={producto.nombre}
-          class="w-full h-full object-cover transition duration-500 group-hover:scale-110"
+          class="w-full h-full object-cover transition duration-500 group-hover:scale-110 tracking-tighter"
         />
 
         <div class="absolute top-3 left-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full font-bold text-xs text-[#f29829] shadow-sm ring-1 ring-orange-100 italic uppercase">
@@ -61,7 +62,7 @@ export default function ProductCard({ producto }: Props) {
           onClick={handleAddClick}
           class="w-full hover:cursor-pointer bg-stone-900 hover:bg-[#f29829] text-white font-bold py-3 rounded-xl flex items-center justify-center gap-2 transition-all active:scale-95 group"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 group-hover:rotate-90 transition-transform"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          <Plus class="w-4 h-4 group-hover:rotate-90 transition-transform" />
           Agregar
         </button>
       </div>
