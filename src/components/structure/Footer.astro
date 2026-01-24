@@ -1,24 +1,65 @@
 ---
 import {Instagram, Facebook, Phone} from '@lucide/astro'
-
+import FrameLogicLogo from '@/assets/favicon.svg';
 const fecha = new Date();
 const dia =  new Intl.DateTimeFormat('es-ES', {weekday: 'long' }).format(fecha);
 ---
 
 <footer class="bg-stone-900 text-stone-400 py-5 px-4">
        
-    <div class="text-center md:text-right">
-        <h4 class="text-white font-semibold mb-4 text-center lg:text-center md:text-right">Redes Sociales</h4>
-        <div class="flex justify-center md:justify-end lg:justify-center gap-6">
-            <a href="https://www.instagram.com/taco_express24/" class="hover:text-pink-500 transition-colors"><i class="w-6 h-6"><Instagram /></i></a>
-            <a href="https://www.facebook.com/profile.php?id=61555231243926" target="_blank" class="hover:text-blue-500 transition-colors"><i  class="w-6 h-6"><Facebook /></i></a>
-            <a href="tel:75138755" target="_blank" class="hover:text-green-500 transition-colors"><i class="w-6 h-6"><Phone /></i></a>
-        </div>
+  <!-- Redes -->
+  <div class="text-center md:text-right">
+    <h4 class="text-white font-semibold mb-4 text-center lg:text-center md:text-right">
+      Redes Sociales
+    </h4>
+
+    <div class="flex justify-center md:justify-end lg:justify-center gap-6">
+      <a href="https://www.instagram.com/taco_express24/" class="hover:text-pink-500 transition-colors">
+        <i class="w-6 h-6"><Instagram /></i>
+      </a>
+
+      <a href="https://www.facebook.com/profile.php?id=61555231243926" target="_blank" class="hover:text-blue-500 transition-colors">
+        <i class="w-6 h-6"><Facebook /></i>
+      </a>
+
+      <a href="tel:75138755" target="_blank" class="hover:text-green-500 transition-colors">
+        <i class="w-6 h-6"><Phone /></i>
+      </a>
     </div>
-            
-        
-    <div class="flex flex-col gap-4 border-t border-stone-800 mt-6 pt-8 text-center text-xs tracking-widest uppercase">
-        ©{new Date().getFullYear()} Taco Express - Todos los derechos reservados.  
-        <span class="italic">Imágenes ilustrativas. La presentación puede variar.</span>
+  </div>
+
+  <!-- Divider -->
+  <div class="border-t border-stone-800 mt-6 pt-6 space-y-4 text-center text-xs tracking-widest uppercase">
+    
+    <!-- Derechos -->
+    <p>
+      ©{new Date().getFullYear()} Taco Express — Todos los derechos reservados.
+    </p>
+
+    <span class="italic block">
+      Imágenes ilustrativas. La presentación puede variar.
+    </span>
+
+    <!-- Powered by -->
+    <div class="flex items-center justify-center gap-2 opacity-70 hover:opacity-100 transition">
+      <span class="tracking-normal normal-case">Powered by</span>
+
+      <a 
+        href="https://frame---logic-website.pages.dev/"
+        target="_blank"
+        class="flex items-center gap-2 hover:text-white transition"
+        aria-label="Frame & Logic"
+      >
+        <img 
+          src={FrameLogicLogo.src}
+          alt="Frame & Logic"
+          class="h-4 w-auto"
+        />
+        <span class="font-semibold tracking-normal normal-case">
+          Frame & Logic
+        </span>
+      </a>
     </div>
+
+  </div>
 </footer>
