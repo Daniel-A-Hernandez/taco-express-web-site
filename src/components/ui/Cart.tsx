@@ -26,7 +26,7 @@ export default function Cart() {
       return;
     }
 
-    const numeroTelefono = "50375138755";
+    const numeroTelefono = "50378862371";
     let mensaje = `*🔥 NUEVO PEDIDO - TACO EXPRESS 🔥*\n\n`;
     mensaje += `👤 *CLIENTE:* ${nombre}\n`;
     mensaje += `📍 *ENTREGA:* ${direccion}\n`;
